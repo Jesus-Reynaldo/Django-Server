@@ -1,0 +1,53 @@
+
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block content %}
+  <h2 class="text-2xl font-semibold">Crear nuevo post</h2>
+  <form method="post" enctype="multipart/form-data" class="mt-4">
+    {% csrf_token %}
+    <div class="flex items-start">
+      <img src="{% static 'images/user-profile.png' %}" alt="Profile Picture" class="w-10 h-10 rounded-full mr-3">
+      <div class="flex-grow">
+        {{ form.title.label_tag }}
+        {{ form.title }}
+      </div>
+    </div>
+    <div class="mt-4">
+      {% comment "" %}
+      
+      {{ form.image_file }}
+      {% endcomment %}
+      <input type="file" name="image_file" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full " id="id_imagenx">
+    </div>
+    <div class="mt-4">
+      {{ form.description }}
+      <img id="imagen-preview" src="#" alt="Vista previa de la imagen" class="mt-2 hidden">
+    </div>
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mt-4">Publicar</button>
+  </form>
+  <script>
+    function mostrarVistaPrevia(input) {
+      var imagenPreview = document.getElementById('imagen-preview');
+      var archivo = input.files[0];
+      var lector = new FileReader();
+  
+      lector.onload = function (e) {
+        imagenPreview.src = e.target.result;
+        imagenPreview.style.width = '200px';
+        imagenPreview.classList.remove('hidden');
+      };
+  
+      lector.readAsDataURL(archivo);
+    }
+  
+    var inputImagen = document.getElementById('id_imagenx');
+    inputImagen.addEventListener('change', function () {
+      mostrarVistaPrevia(this);
+    });
+  </script>
+  <style>
+    #id_description{
+      border: 1px solid black;
+    }
+  </style>
+{% endblock %}

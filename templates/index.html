@@ -1,11 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Django-Server</title>
-</head>
-<body>
-  <h1>Esta es un prueba</h1>
-</body>
-</html>
+<!-- templates/publicaciones/lista_publicaciones.html -->
+
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-3 gap-4">
+      {% for publicacion in publicaciones %}
+        <div class="bg-white rounded shadow-md flex justify-center items-center flex-col">
+          <img src="{{ publicacion.image_file.url }}" alt="{{ publicacion.title }}" class="w-[300px] cursor-pointer" onclick="agrandarImagen(this)">
+          <div class="p-4">
+            <h2 class="text-xl font-semibold">{{ publicacion.title }}</h2>
+            <p class="text-gray-500">{{ publicacion.description }}</p>
+            <p class="text-gray-500">{{ publicacion.date_created }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <script>
+    function agrandarImagen(imagen){
+      imagen.classList.toggle('w-[700px]');
+      imagen.classList.toggle('w-[300px]');
+    }  
+  </script>
+{% endblock %}
