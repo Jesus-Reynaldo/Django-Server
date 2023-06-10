@@ -12,12 +12,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
-'''
+
 from dotenv import load_dotenv
 
 # Cargar las variables de entorno desde el archivo .env
 load_dotenv()
-'''
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -46,8 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'publicaciones',
     'django_browser_reload',
+    'publicaciones',
+    'user',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -140,3 +140,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+AUTH_USER_MODEL = 'user.CustomUser'
