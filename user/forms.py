@@ -14,18 +14,3 @@ class SignUpForm(UserCreationForm):
     avatar = forms.ImageField(widget=forms.ClearableFileInput(attrs={'class': 'w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'}))
     date_born = forms.DateField(widget=forms.DateInput(attrs={'class': 'w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'}))
-'''
-class LoginForm(forms.Form):
-    username = forms.CharField(
-        label='Usuario',
-        widget=forms.TextInput(
-            attrs={'class': 'appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}
-        )
-    )
-    password = forms.CharField(
-        label='Contraseña',
-        widget=forms.PasswordInput(
-            attrs={'class': 'appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}
-        )
-    )
-'''
