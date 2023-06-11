@@ -1,0 +1,21 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+  <div class="flex justify-center items-center h-screen">
+    <div class="w-full max-w-sm">
+      <form method="post" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h1 class="text-3xl text-center mb-4">Registro</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class=" mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Registrarse</button>
+
+      </form>
+    </div>
+  </div>
+  <style>
+    /* Ocultar mensajes de validación de contraseña */
+    .errorlist li:nth-child(-n+3) {
+      display: none;
+    }
+  </style>
+{% endblock %}

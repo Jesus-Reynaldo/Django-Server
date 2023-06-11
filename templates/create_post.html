@@ -6,7 +6,7 @@
   <form method="post" enctype="multipart/form-data" class="mt-4">
     {% csrf_token %}
     <div class="flex items-start">
-      <img src="{% static 'images/user-profile.png' %}" alt="Profile Picture" class="w-10 h-10 rounded-full mr-3">
+      <img src="{{ user.avatar.url }}" alt="Profile Picture" class="w-10 h-10 rounded-full mr-3">
       <div class="flex-grow">
         {{ form.title.label_tag }}
         {{ form.title }}

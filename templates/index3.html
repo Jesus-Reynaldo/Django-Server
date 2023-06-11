@@ -1,0 +1,29 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+  <h1>Publicaciones</h1>
+
+  {% if user.is_authenticated %}
+    <h2>Mis Publicaciones</h2>
+    {% for publicacion in publicaciones_usuario %}
+      <!-- Renderizar las publicaciones del usuario actual -->
+      <div class="publicacion">
+        <p>{{ publicacion.contenido }}</p>
+        <p>Fecha: {{ publicacion.fecha }}</p>
+        <!-- Resto de los campos de la publicación -->
+      </div>
+    {% endfor %}
+
+    <h2>Publicaciones de los Seguidos</h2>
+    {% for publicacion in publicaciones_seguidos %}
+      <!-- Renderizar las publicaciones de los usuarios seguidos -->
+      <div class="publicacion">
+        <p>{{ publicacion.contenido }}</p>
+        <p>Fecha: {{ publicacion.fecha }}</p>
+        <!-- Resto de los campos de la publicación -->
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>Debes iniciar sesión para ver las publicaciones.</p>
+  {% endif %}
+{% endblock %}
