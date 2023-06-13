@@ -5,23 +5,23 @@
     <div class="flex justify-between items-center my-6">
       <div class="flex items-center">
         <div class="rounded-full overflow-hidden">
-          <img src="{{ user.avatar.url }}" alt="{{ user.username }}" class="w-16 h-16">
+          <img src="{{ user_view.avatar.url }}" alt="{{ user_view.username }}" class="w-16 h-16">
         </div>
         <div class="ml-4">
-          <h2 class="text-2xl font-bold">{{ user.username }}</h2>
-          <p class="text-sm text-gray-500">{{ user.first_name }} {{ user.last_name }}</p>
+          <h2 class="text-2xl font-bold">{{ user_view.username }}</h2>
+          <p class="text-sm text-gray-500">{{ user_view.first_name }} {{ user_view.last_name }}</p>
         </div>
       </div>
       <!-- Botón de seguir/Dejar de seguir -->
       <div>
-        {% if request.user != user %}
-          {% if request.user in user.followers.all %}
-            <form action="{% url 'unfollow' username=user.username %}" method="POST">
+        {% if user_view != user %}
+          {% if user_view in user.follows.all %}
+            <form action="{% url 'unfollow' username=user_view.username %}" method="POST">
               {% csrf_token %}
               <button type="submit" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-full">Dejar de seguir</button>
             </form>
           {% else %}
-            <form action="{% url 'follow' username=user.username %}" method="POST">
+            <form action="{% url 'follow' username=user_view.username %}" method="POST">
               {% csrf_token %}
               <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-full">Seguir</button>
             </form>
@@ -33,7 +33,7 @@
     <div class="grid grid-cols-3 gap-4">
       {% for post in posts %}
         <div>
-          <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-40 object-cover">
+          <img src="{{ post.image_file.url }}" alt="{{ post.title }}" class="w-300 h-40 object-cover">
         </div>
       {% empty %}
         <p>No hay publicaciones.</p>

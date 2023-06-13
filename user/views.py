@@ -1,5 +1,7 @@
 from django.contrib.auth import login, authenticate,logout
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+
 from django.http import HttpResponse
 from .forms import SignUpForm
 from .models import CustomUser
@@ -40,11 +42,26 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
+@login_required
 def profile_view(request, username):
-    user = CustomUser.objects.get(username=username)
-    posts = Publicacion.objects.get(user=user)
+    user_view = get_object_or_404(CustomUser, username=username)
+    posts = Publicacion.objects.filter(user=user_view)
     context={
-        'user': user,
+        'user_view': user_view,
         'posts': posts,
     }
     return render(request, 'profile.html', context)
+
+@login_required
+def follow_user(request, username):
+    user = request.user
+    followed_user = CustomUser.objects.get(username=username)
+    user.follow(followed_user)
+    return redirect('profile', username=username)
+
+@login_required
+def unfollow_user(request, username):
+    user = request.user
+    followed_user = CustomUser.objects.get(username=username)
+    user.unfollow(followed_user)
+    return redirect('profile', username=username)
