@@ -1,0 +1,43 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+  <div class="container mx-auto">
+    <div class="flex justify-between items-center my-6">
+      <div class="flex items-center">
+        <div class="rounded-full overflow-hidden">
+          <img src="{{ user.avatar.url }}" alt="{{ user.username }}" class="w-16 h-16">
+        </div>
+        <div class="ml-4">
+          <h2 class="text-2xl font-bold">{{ user.username }}</h2>
+          <p class="text-sm text-gray-500">{{ user.first_name }} {{ user.last_name }}</p>
+        </div>
+      </div>
+      <!-- Botón de seguir/Dejar de seguir -->
+      <div>
+        {% if request.user != user %}
+          {% if request.user in user.followers.all %}
+            <form action="{% url 'unfollow' username=user.username %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-full">Dejar de seguir</button>
+            </form>
+          {% else %}
+            <form action="{% url 'follow' username=user.username %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-full">Seguir</button>
+            </form>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+    <!-- Mostrar publicaciones del usuario -->
+    <div class="grid grid-cols-3 gap-4">
+      {% for post in posts %}
+        <div>
+          <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-40 object-cover">
+        </div>
+      {% empty %}
+        <p>No hay publicaciones.</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

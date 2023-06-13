@@ -1,7 +1,9 @@
 from django.contrib.auth import login, authenticate,logout
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .forms import SignUpForm
+from .models import CustomUser
+from publicaciones.models import Publicacion
 def user(request):
     return HttpResponse('<h1>User</h1>');
 
@@ -37,3 +39,12 @@ def signup_view(request):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+def profile_view(request, username):
+    user = CustomUser.objects.get(username=username)
+    posts = Publicacion.objects.get(user=user)
+    context={
+        'user': user,
+        'posts': posts,
+    }
+    return render(request, 'profile.html', context)
